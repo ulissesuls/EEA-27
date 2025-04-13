@@ -1,0 +1,109 @@
+13:55:55 **** Incremental Build of configuration Debug for project EEA27-Lab2-FelipeLuanUlisses ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab2-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1256	    108	   2084	   3448	    d78	EEA27-Lab2-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab2-FelipeLuanUlisses.siz'
+' '
+13:56:32 **** Build of configuration Debug for project EEA27-Lab1-FelipeLuanUlisses ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab1-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+  13792	    120	   3088	  17000	   4268	EEA27-Lab1-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab1-FelipeLuanUlisses.siz'
+' '
+13:56:34 **** Incremental Build of configuration Debug for project EEA27-Lab2-FelipeLuanUlisses ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab2-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1256	    108	   2084	   3448	    d78	EEA27-Lab2-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab2-FelipeLuanUlisses.siz'
+' '
+13:56:35 **** Incremental Build of configuration release for project ksdk_platform_lib_KL25Z4 ****
+make -k all 
+make: Nothing to be done for `all'.
+13:59:04 **** Incremental Build of configuration Debug for project EEA27-Lab2-FelipeLuanUlisses ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab2-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1256	    108	   2084	   3448	    d78	EEA27-Lab2-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab2-FelipeLuanUlisses.siz'
+' '
+14:04:04 **** Incremental Build of configuration Debug for project EEA27-Lab1-FelipeLuanUlisses ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab1-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+  13792	    120	   3088	  17000	   4268	EEA27-Lab1-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab1-FelipeLuanUlisses.siz'
+' '
+14:04:05 **** Incremental Build of configuration Debug for project EEA27-Lab2-FelipeLuanUlisses ****
+make all 
+'Building file: ../Sources/rgb/hal_rgbled.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -std=c99 -MMD -MP -MF"Sources/rgb/hal_rgbled.d" -MT"Sources/rgb/hal_rgbled.o" -c -o "Sources/rgb/hal_rgbled.o" "../Sources/rgb/hal_rgbled.c"
+'Finished building: ../Sources/rgb/hal_rgbled.c'
+' '
+'Building target: EEA27-Lab2-FelipeLuanUlisses.elf'
+'Invoking: Cross ARM C++ Linker'
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"D:/Projetos/Projetos ITA/EEA27/EEA27-Lab2-FelipeLuanUlisses/Project_Settings/Linker_Files" -Wl,-Map,"EEA27-Lab2-FelipeLuanUlisses.map" -specs=nosys.specs -specs=nano.specs -o "EEA27-Lab2-FelipeLuanUlisses.elf"  ./Sources/rgb/hal_rgbled.o  ./Sources/main.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o   
+'Finished building target: EEA27-Lab2-FelipeLuanUlisses.elf'
+' '
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab2-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1256	    108	   2084	   3448	    d78	EEA27-Lab2-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab2-FelipeLuanUlisses.siz'
+' '
+14:04:07 **** Incremental Build of configuration release for project ksdk_platform_lib_KL25Z4 ****
+make -k all 
+make: Nothing to be done for `all'.
+14:04:36 **** Incremental Build of configuration Debug for project EEA27-Lab2-FelipeLuanUlisses ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab2-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1256	    108	   2084	   3448	    d78	EEA27-Lab2-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab2-FelipeLuanUlisses.siz'
+' '
+14:06:00 **** Incremental Build of configuration Debug for project EEA27-Lab1-FelipeLuanUlisses ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab1-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+  13792	    120	   3088	  17000	   4268	EEA27-Lab1-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab1-FelipeLuanUlisses.siz'
+' '
+14:06:01 **** Incremental Build of configuration Debug for project EEA27-Lab2-FelipeLuanUlisses ****
+make all 
+'Building file: ../Sources/rgb/hal_rgbled.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -std=c99 -MMD -MP -MF"Sources/rgb/hal_rgbled.d" -MT"Sources/rgb/hal_rgbled.o" -c -o "Sources/rgb/hal_rgbled.o" "../Sources/rgb/hal_rgbled.c"
+'Finished building: ../Sources/rgb/hal_rgbled.c'
+' '
+'Building target: EEA27-Lab2-FelipeLuanUlisses.elf'
+'Invoking: Cross ARM C++ Linker'
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"D:/Projetos/Projetos ITA/EEA27/EEA27-Lab2-FelipeLuanUlisses/Project_Settings/Linker_Files" -Wl,-Map,"EEA27-Lab2-FelipeLuanUlisses.map" -specs=nosys.specs -specs=nano.specs -o "EEA27-Lab2-FelipeLuanUlisses.elf"  ./Sources/rgb/hal_rgbled.o  ./Sources/main.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o   
+'Finished building target: EEA27-Lab2-FelipeLuanUlisses.elf'
+' '
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab2-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1256	    108	   2084	   3448	    d78	EEA27-Lab2-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab2-FelipeLuanUlisses.siz'
+' '
+14:06:03 **** Incremental Build of configuration release for project ksdk_platform_lib_KL25Z4 ****
+make -k all 
+make: Nothing to be done for `all'.
+14:06:19 **** Incremental Build of configuration Debug for project EEA27-Lab2-FelipeLuanUlisses ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab2-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1256	    108	   2084	   3448	    d78	EEA27-Lab2-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab2-FelipeLuanUlisses.siz'
+' '

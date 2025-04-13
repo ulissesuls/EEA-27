@@ -1,0 +1,81 @@
+#include "hal_rgbled.h"
+#include "MKL25Z4.h"
+
+// Definições para os pinos do LED RGB (FRDM-KL25Z)
+#define RED_LED_PIN    18  // PTB18
+#define GREEN_LED_PIN  19  // PTB19
+#define BLUE_LED_PIN   1   // PTD1
+
+// Configuração inicial do LED RGB
+void hal_rgbled_setupRgbled(void) {
+    // Habilita clock gating para PORTB e PORTD
+    SIM->SCGC5 |= (SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTD_MASK);
+
+    // Configura os pinos como GPIO (MUX = 001)
+    PORTB->PCR[RED_LED_PIN] = PORT_PCR_MUX(1);
+    PORTB->PCR[GREEN_LED_PIN] = PORT_PCR_MUX(1);
+    PORTD->PCR[BLUE_LED_PIN] = PORT_PCR_MUX(1);
+
+    // Define os pinos como saída
+    PTB->PDDR |= (1UL << RED_LED_PIN) | (1UL << GREEN_LED_PIN);
+    PTD->PDDR |= (1UL << BLUE_LED_PIN);
+
+    // Inicializa LEDs apagados (nível alto)
+    hal_rgbled_clearLedRed();
+    hal_rgbled_clearLedGreen();
+    hal_rgbled_clearLedBlue();
+}
+
+// Funções para ligar/desligar LEDs (nível baixo ativa o LED)
+void hal_rgbled_setLedRed(void)    { PTB->PCOR = (1UL << RED_LED_PIN); }
+void hal_rgbled_setLedGreen(void)  { PTB->PCOR = (1UL << GREEN_LED_PIN); }
+void hal_rgbled_setLedBlue(void)   { PTD->PCOR = (1UL << BLUE_LED_PIN); }
+void hal_rgbled_clearLedRed(void)  { PTB->PSOR = (1UL << RED_LED_PIN); }
+void hal_rgbled_clearLedGreen(void){ PTB->PSOR = (1UL << GREEN_LED_PIN); }
+void hal_rgbled_clearLedBlue(void) { PTD->PSOR = (1UL << BLUE_LED_PIN); }
+
+// Temporizador aproximado (ajuste o loop conforme necessário)
+void dummyTimer(int counterTime) {
+    volatile int i, j;
+    for (i = 0; i < counterTime; i++) {
+        for (j = 0; j < 1000000; j++);
+    }
+}
+
+// Máquina de estados do semáforo
+void hal_rgbled_trafficLight(void) {
+    static enum { RED, GREEN, YELLOW } currentState = RED;
+
+    switch (currentState) {
+        case RED:
+            // Vermelho por 3 segundos
+            hal_rgbled_setLedRed();
+            hal_rgbled_clearLedGreen();
+            hal_rgbled_clearLedBlue();
+            dummyTimer(3); // 3s
+            currentState = GREEN;
+            break;
+
+        case GREEN:
+            // Verde por 4 segundos
+            hal_rgbled_setLedGreen();
+            hal_rgbled_clearLedRed();
+            hal_rgbled_clearLedBlue();
+            dummyTimer(4); // 4s
+            currentState = YELLOW;
+            break;
+
+        case YELLOW:
+            // Amarelo por 2 segundos (Vermelho + Verde)
+            hal_rgbled_setLedRed();
+            hal_rgbled_setLedGreen();
+            hal_rgbled_clearLedBlue();
+            dummyTimer(2); // 2s
+            currentState = RED;
+            break;
+
+        default:
+            currentState = RED;
+            break;
+    }
+}

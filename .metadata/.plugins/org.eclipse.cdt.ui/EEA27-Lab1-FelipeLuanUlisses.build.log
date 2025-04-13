@@ -1,0 +1,11 @@
+14:06:00 **** Incremental Build of configuration Debug for project EEA27-Lab1-FelipeLuanUlisses ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "EEA27-Lab1-FelipeLuanUlisses.elf"
+   text	   data	    bss	    dec	    hex	filename
+  13792	    120	   3088	  17000	   4268	EEA27-Lab1-FelipeLuanUlisses.elf
+'Finished building: EEA27-Lab1-FelipeLuanUlisses.siz'
+' '
+
+14:06:01 Build Finished (took 1s.27ms)
+
