@@ -1,0 +1,145 @@
+#include "fsl_clock_manager.h"
+#include "fsl_port_hal.h"
+#include "fsl_gpio_hal.h"
+#include "ksdk_clockchanger.h"
+
+
+#define EXTAL0_PORT 	PORTA
+#define EXTAL0_PIN  	18
+#define EXTAL0_PINMUX 	kPortPinDisabled
+
+#define XTAL0_PORT 		PORTA
+#define XTAL0_PIN  		19
+#define XTAL0_PINMUX 	kPortPinDisabled
+
+void mcg_initSystemClock(void)
+{
+    /* pre-set */
+    /* clock for PORTs */
+	CLOCK_SYS_EnablePortClock(PORTA_IDX);
+
+
+    /* configure OSCO pin mux */
+    PORT_HAL_SetMuxMode(EXTAL0_PORT, EXTAL0_PIN, EXTAL0_PINMUX);
+    PORT_HAL_SetMuxMode(XTAL0_PORT, XTAL0_PIN, XTAL0_PINMUX);
+
+    /* Set the clock (MCGOUTCLK) to 40 MHz */
+    /* Chapter 24 - Multipurpose Clock Generator (MCG) */
+    /* Figure 24-1. Multipurpose Clock Generator (MCG) block diagram */
+    /* 24.4.1.1 MCG modes of operation */
+    /* Table 24-18. MCG modes of operation */
+
+
+    /* FLL Engaged External */
+    /*MCG_C1 = CLKS, IREFS, FRDIV;
+    MCG_C2 = RANGE0;
+    MCG_C4 = DRST_DRS, DMX32;
+    MCG_C5 = PLLCLKEN0;
+    MCG_C6 = PLLS;*/
+
+    /* 24.5.1.1 Initializing the MCG */
+    /* 1. Enable the external clock source by setting the appropriate bits in C2 register */
+    MCG_C2 = MCG_C2_RANGE(2)  // Define a faixa do oscilador (0 = Baixa, 1 = Media, 2 = Alta frequencia)
+           | MCG_C2_HGO(1)    // Configura o oscilador para alta qualidade (1 = Alta, 0 = Baixa)
+           | MCG_C2_EREFS(1); // Usa um cristal externo como fonte de clock (1 = Habilita)
+    /* 2. Write to C1 register to select the clock mode */
+    MCG_C1 = MCG_C1_CLKS(2)   // Seleciona o oscilador externo (CLKS = 2)
+           | MCG_C1_FRDIV(3)  // Define o divisor da referencia externa (Divisao por 256)
+           | MCG_C1_IREFS(0); // Usa referencia externa para FLL
+    /* 3. Once the proper configuration bits have been set, wait for the affected bits in the */
+    /*    MCG status register to be changed appropriately, reflecting that the MCG has moved */
+    /*    into the proper mode. */
+
+    for (volatile int i = 0; i < 100000; i++) {
+            __asm("nop");
+        }
+    /* 4. Write to the C4 register to determine the DCO output (MCGFLLCLK) frequency range. */
+    MCG_C4 = (MCG_C4 & ~(MCG_C4_DRST_DRS_MASK | MCG_C4_DMX32_MASK)) // Limpa os bits
+           | MCG_C4_DRST_DRS(1)   // DRST_DRS = 1 => multiplicador = 1280
+           | MCG_C4_DMX32(0);     // DMX32 = 0 => faixa normal (n�o fina)
+    /* 5. Wait for the FLL lock time to guarantee FLL is running at new C4[DRST_DRS] and */
+    /*    C4[DMX32] programmed frequency. */
+    for (volatile int i = 0; i < 100000; i++) {
+        __asm("nop");
+    }
+
+    /* 24.5.3 MCG mode switching */
+    /* Table 24-19. MCGOUTCLK Frequency Calculation Options */
+    /*
+        f_MCGOUTCLK = (f_ext / FLL_R) * F
+                    = (8 MHz / 256) * 1280
+                    = 40 MHz
+    */
+    /* => f_ext / FLL_R must be in the range of 31.25 kHz to 39.0625 kHz */
+    /* => FLL_R is the reference divider selected by the C1[FRDIV] bits */
+    /* => F is the FLL factor selected by C4[DRST_DRS] and C4[DMX32] bits */
+
+    /* Atualiza apenas os bits CLKS para 0 (usar FLL como MCGOUTCLK) */
+    MCG_C1 = (MCG_C1 & ~MCG_C1_CLKS_MASK)  // Zera os bits CLKS
+           | MCG_C1_CLKS(0);               // Seleciona FLL como fonte do MCGOUTCLK
+
+    /* Aguarda ate que o MCGOUTCLK esteja efetivamente vindo da FLL */
+    while ((MCG_S & MCG_S_CLKST_MASK) != MCG_S_CLKST(0)) {
+        // Esperando CLKST == 0: saida do FLL
+    }
+}
+
+void lptmr_initTimer(void)
+{
+    /* Chapter 33
+     * Low-Power Timer (LPTMR)
+     *
+     * mode: Time counter mode
+     * free running enabled: false
+     * prescaler enabled : true
+     * prescaler clock source: lpo clock
+     * prescaler value : divide by 2
+     * interrupt enabled: true
+     */
+
+    // clock gate to LPTMR0
+    CLOCK_SYS_EnableLptmrClock(LPTMR0_IDX);
+
+    // disable the LPTMR0 by
+    // using the correct field of register LPTMR0_CSR
+    LPTMR0_CSR &= ~LPTMR_CSR_TEN_MASK;
+
+    // enable the interruption of the LPTMR0 by
+    // using the correct field of register LPTMR0_CSR
+    LPTMR0_CSR |= LPTMR_CSR_TIE_MASK;
+
+    // clear the timer compare flag of the LPTMR0 by
+    // using the correct field of register LPTMR0_CSR
+    LPTMR0_CSR |= LPTMR_CSR_TCF_MASK;
+
+    // select the option
+    // Prescaler / glitch filter clock 1 selected
+    // for the Prescaler Clock Select in the
+    // register LPTMR0_PSR
+    LPTMR0_PSR = (LPTMR0_PSR & ~LPTMR_PSR_PCS_MASK) | LPTMR_PSR_PCS(1);
+
+
+    // set the CCE period in the compare value
+    // field of the register LPTMR0_CMR
+    LPTMR0_CMR = 1000;
+
+    // enable the LPTMR0 by
+    // using the correct field of register LPTMR0_CSR
+    LPTMR0_CSR |= LPTMR_CSR_TEN_MASK;
+
+    // AT LAST , enable the interruption of LPTMR0 in NVIC
+    // 33.4.1 LPTMR power and reset
+    NVIC_EnableIRQ(LPTMR0_IRQn);
+}
+
+void LPTMR0_IRQHandler(void)
+{
+    // place your handling ISR here
+    // this should be only the CCE lock control variable handling!
+	uiFlagNextPeriod = 1;
+
+    // at the end, acknowledge you handled the interruption
+    // by manipulating the TCF field in the register LPTMR0_CSR
+    // 33.4.7 LPTMR interrupt
+	LPTMR0->CSR |= LPTMR_CSR_TCF_MASK;
+}

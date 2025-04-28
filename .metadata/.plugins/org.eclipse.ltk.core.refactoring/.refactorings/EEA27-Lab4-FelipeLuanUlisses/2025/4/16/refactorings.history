@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;EEA27-Lab4-FelipeLuanUlisses/Sources/clock/ksdk_clockchancer.h&apos; to &apos;ksdk_clockchanger.h&apos;" description="Rename resource &apos;ksdk_clockchancer.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Sources/clock/ksdk_clockchancer.h" name="ksdk_clockchanger.h" stamp="1744916308079" updateReferences="true"/>
+</session>

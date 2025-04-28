@@ -1,6 +1,6 @@
-14:06:03 **** Incremental Build of configuration release for project ksdk_platform_lib_KL25Z4 ****
+14:35:49 **** Incremental Build of configuration release for project ksdk_platform_lib_KL25Z4 ****
 make -k all 
 make: Nothing to be done for `all'.
 
-14:06:05 Build Finished (took 1s.665ms)
+14:35:52 Build Finished (took 3s.17ms)
 

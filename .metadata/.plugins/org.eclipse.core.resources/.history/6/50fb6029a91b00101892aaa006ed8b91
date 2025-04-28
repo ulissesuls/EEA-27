@@ -1,0 +1,18 @@
+#ifndef KSDK_HAL_RGBLED_H
+#define KSDK_HAL_RGBLED_H
+
+#include "fsl_gpio.h"
+#include "fsl_port.h"
+
+// Definições dos pinos (RGB: PTB18, PTB19, PTD1)
+#define RED_LED_PORT      PORTB
+#define RED_LED_PIN       18
+#define GREEN_LED_PORT    PORTB
+#define GREEN_LED_PIN     19
+#define BLUE_LED_PORT     PORTD
+#define BLUE_LED_PIN      1
+
+void ksdk_hal_rgbled_init(void);
+void ksdk_hal_rgbled_set(uint8_t r, uint8_t g, uint8_t b);
+
+#endif // KSDK_HAL_RGBLED_H

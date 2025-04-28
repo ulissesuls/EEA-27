@@ -1,0 +1,40 @@
+#include "ksdk_hal_rgbled.h"
+
+
+void ksdk_hal_rgbled_init(void) {
+    // Habilita clock para PORTB e PORTD
+    CLOCK_SYS_EnablePortClock(PORTB_IDX);
+    CLOCK_SYS_EnableClock(PORTD_IDX);
+
+    // Configura pinos como GPIO
+    PORT_HAL_SetMuxMode(RED_LED_PORT, RED_LED_PIN, kPortMuxAsGpio);
+    PORT_HAL_SetMuxMode((GREEN_LED_PORT, GREEN_LED_PIN, kPortMuxAsGpio);
+    PORT_HAL_SetMuxMode((BLUE_LED_PORT, BLUE_LED_PIN, kPortMuxAsGpio);
+
+}
+
+void ksdk_hal_ledrgb_clearRedLed(void){
+	GPIO_HAL_SetPinOutput(RED_LED_PORT, RED_LED_PIN);
+}
+
+void ksdk_hal_ledrgb_clearBlueLed(void){
+	GPIO_HAL_SetPinOutput(BLUE_LED_PORT, BLUE_LED_PIN);
+}
+
+void ksdk_hal_ledrgb_clearGreenLed(void){
+	GPIO_HAL_SetPinOutput(GREEN_LED_PORT, GREEN_LED_PIN);
+}
+
+void ksdk_hal_ledrgb_setRedLed(void){
+	GPIO_HAL_ClearPinOutput(RED_LED_PORT, RED_LED_PIN);
+}
+
+void ksdk_hal_ledrgb_setBlueLed(void){
+	GPIO_HAL_ClearPinOutput(BLUE_LED_PORT, BLUE_LED_PIN);
+}
+
+void ksdk_hal_ledrgb_setGreenLed(void){
+	GPIO_HAL_ClearPinOutput(GREEN_LED_PORT, GREEN_LED_PIN);
+}
+
+

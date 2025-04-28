@@ -1,0 +1,13 @@
+14:01:52 **** Incremental Build of configuration Debug for project reset1 ****
+make all 
+'Building file: ../Sources/main.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -std=c99 -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -c -o "Sources/main.o" "../Sources/main.c"
+../Sources/main.c:32:33: fatal error: rgb/ksdk_hal_rgbled.h: No such file or directory
+ #include "rgb/ksdk_hal_rgbled.h"
+                                 ^
+compilation terminated.
+make: *** [Sources/main.o] Error 1
+
+14:01:53 Build Finished (took 709ms)
+
